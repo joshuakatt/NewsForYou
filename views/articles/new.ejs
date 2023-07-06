@@ -5,7 +5,37 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            position: relative;
+            background-color: #e8f0e7;
+        }
 
+        .container {
+            max-width: 800px;
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mb-4 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* Overlay of 2D leaves */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://img.freepik.com/free-vector/green-leaf-design-element-set-beige-background-vector_53876-118061.jpg') repeat;
+            opacity: 0.1;
+            z-index: -1;
+        }
+    </style>
     <title>Blog</title>
 </head>
 <body>

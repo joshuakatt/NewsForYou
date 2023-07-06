@@ -5,23 +5,67 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            position: relative;
+            background-color: #e8f0e7;
+        }
 
+        .container {
+            max-width: 800px;
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mb-4 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .text-muted {
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+        }
+
+        /* Overlay of 2D leaves */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://img.freepik.com/free-vector/green-leaf-design-element-set-beige-background-vector_53876-118061.jpg') repeat;
+            opacity: 0.1;
+            z-index: -1;
+        }
+    </style>
     <title>Blog</title>
 </head>
 <body>
     <div class="container">
         <h1 class="mb-4"><%= article.title %></h1>
-        <div class=""text-muted mb-2> 
-            <%= article.createdAt.toLocaleDateString()%>
+        <div class="text-muted mb-2"> 
+            <%= article.createdAt.toLocaleDateString() %>
         </div>
-        <a href = "/" class="btn btn-secondary"> All Articles</a>
+        <a href="/" class="btn btn-secondary">All Articles</a>
         
-        <a href = "/articles/edit/<%= article.id%>" class="btn btn-info"> Edit</a>
+        <a href="/articles/edit/<%= article.id %>" class="btn btn-info">Edit</a>
         
         <div>
             <%= article.markdown %>
         </div>
-
     </div>
 </body>
 </html>
