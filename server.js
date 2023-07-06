@@ -1,33 +1,33 @@
-const express = require('express')
-const app = express()
-const mongoose = require('mongoose')
-const articleRouter = require('./routes/articles')
+const express = require('express');
+const mongoose = require('mongoose');
+const Article = require('./models/article');
+const articleRouter = require('./routes/articles');
+const methodOverride = require('method-override');
+const app = express();
 
-mongoose.connect('mongodb://localhost/BLOG_1.0', {useNewUrlParser: true}, {useUnifiedTopology: true})
+mongoose.connect('mongodb://localhost/BLOG_1', { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Connected to MongoDB');
+    app.listen(8000, () => {
+      console.log('Server started on port 8000');
+    });
+  })
+  .catch((error) => {
+    console.error('MongoDB connection error:', error);
+  });
 
-app.set('view engine', 'ejs')
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride('_method'));
 
-app.use(express.urlencoded({extended: false}))
+app.get('/', async (req, res) => {
+  try {
+    const articles = await Article.find().sort({ createdAt: 'desc' });
+    res.render('articles/index', { articles: articles });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
-
-
-app.get('/', (req, res) =>
-        
-    {
-        const articles = [
-        {
-            title: "Test Article",
-            createdAt: new Date(),
-            description: 'Test Description'
-        },
-        {
-            title: "Test Article 2",
-            createdAt: new Date(),
-            description: 'Test Description 2'
-        }
-    ]
-        res.render('articles/index', {articles: articles })
-    })
-
-app.use('/articles', articleRouter)
-app.listen(8000)
+app.use('/articles', articleRouter);
